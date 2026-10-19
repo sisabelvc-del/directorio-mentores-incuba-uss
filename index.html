@@ -190,30 +190,7 @@ footer strong { color: var(--azul); }
   DATOS TEMPORALES DE DEMOSTRACIÓN.
   Se reemplazarán por los registros reales de Google Sheets.
 */
-const mentors = [
-  {
-    id: "DEMO01",
-    name: "Mentor de demostración",
-    profession: "Profesión por registrar",
-    degree: "Grado académico por registrar",
-    specialty: "Marketing",
-    specialties: ["Marketing", "Ventas"],
-    sectors: ["Comercio", "Servicios"],
-    city: "Chiclayo",
-    country: "Perú",
-    experienceYears: 0,
-    mentoringYears: 0,
-    bio: "Este perfil es un ejemplo visual. Aquí se mostrará la biografía real del mentor cuando conectemos la base de datos.",
-    experience: "La experiencia profesional se incorporará desde la base de datos.",
-    mentoring: "La experiencia como mentor se incorporará desde la base de datos.",
-    photo: "",
-    linkedin: "",
-    facebook: "",
-    instagram: "",
-    website: "",
-    email: ""
-  }
-];
+let mentors = [];
 
 const $ = id => document.getElementById(id);
 const clean = value => String(value || "").trim();
@@ -310,11 +287,80 @@ function showProfile(id) {
   window.scrollTo({top:0,behavior:"smooth"});
 }
 
-optionsFor("specialty", mentors.map(m => list(m.specialties).concat(list(m.specialty))), "Todas las especialidades");
-optionsFor("sector", mentors.map(m => m.sectors), "Todos los sectores");
-optionsFor("city", mentors.map(m => m.city), "Todas las ciudades");
-["search","specialty","sector","city"].forEach(id => $(id).addEventListener(id === "search" ? "input" : "change", render));
-render();
+
+const API_URL = "https://script.google.com/macros/s/AKfycby2CBa84gnQRZYiE7m8V_IRGCVECdwB0Jp9QEJjK_QWH9HS_D544HhQ4IuEi1YSs4zQyw/exec";
+
+function loadMentors() {
+  $("count").textContent = "Cargando mentores...";
+  const script = document.createElement("script");
+  const callbackName = "receiveMentors";
+
+  window[callbackName] = function(data) {
+    delete window[callbackName];
+    script.remove();
+
+    if (!data || !data.ok || !Array.isArray(data.mentors)) {
+      $("count").textContent = "No se pudieron cargar los mentores.";
+      $("cards").innerHTML =
+        '<div class="empty">No fue posible cargar el directorio. Intenta más tarde.</div>';
+      return;
+    }
+
+    mentors = data.mentors.map(m => ({
+      id: m.ID_Mentor || "",
+      name: m.Nombre_Completo || "",
+      profession: m["Profesión"] || "",
+      degree: m["Grado_Académico"] || "",
+      specialty: m.Especialidad_Principal || "",
+      specialties: list(m.Especialidades),
+      sectors: list(m.Sectores),
+      city: m.Ciudad || "",
+      country: m.País || "",
+      experienceYears: m["Años_Experiencia"] || "",
+      mentoringYears: m["Años_Mentoria"] || "",
+      bio: m["Biografía"] || "",
+      experience: m.Experiencia_Profesional || "",
+      mentoring: m.Experiencia_Mentoria || "",
+      photo: m.Foto || "",
+      linkedin: m.LinkedIn || "",
+      facebook: m.Facebook || "",
+      instagram: m.Instagram || "",
+      website: m.Página_Web || "",
+      email: ""
+    }));
+
+    optionsFor(
+      "specialty",
+      mentors.map(m => list(m.specialties).concat(list(m.specialty))),
+      "Todas las especialidades"
+    );
+    optionsFor("sector", mentors.map(m => m.sectors), "Todos los sectores");
+    optionsFor("city", mentors.map(m => m.city), "Todas las ciudades");
+
+    render();
+  };
+
+  script.onerror = function() {
+    delete window[callbackName];
+    script.remove();
+    $("count").textContent = "Error de conexión";
+    $("cards").innerHTML =
+      '<div class="empty">No se pudo conectar con la base de datos.</div>';
+  };
+
+  script.src = API_URL + "?callback=" + callbackName;
+  document.body.appendChild(script);
+}
+
+["search", "specialty", "sector", "city"].forEach(id =>
+  $(id).addEventListener(
+    id === "search" ? "input" : "change",
+    render
+  )
+);
+
+loadMentors();
+
 </script>
 </body>
 </html>
