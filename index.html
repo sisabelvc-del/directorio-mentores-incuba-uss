@@ -69,14 +69,75 @@ main { max-width: 1200px; margin: -23px auto 0; padding: 0 24px 60px; }
 }
 .results h2 { margin: 0; color: var(--azul); font-size: 22px; }
 .results span { color: var(--muted); font-size: 13px; }
+
 .grid {
-  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 22px;
 }
+
 .card {
-  background: white; border: 1px solid #e7ebf0; border-radius: 14px;
-  overflow: hidden; transition: transform .2s, box-shadow .2s;
+  background: #ffffff;
+  border: 1px solid #e7ebf0;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 3px 12px rgba(18, 52, 90, 0.04);
+  transition: transform .2s ease, box-shadow .2s ease;
 }
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(18, 52, 90, 0.09);
+}
+
+.card-body {
+  padding: 19px;
+}
+
+.card h3 {
+  margin: 0 0 6px;
+  color: #12345a;
+  font-size: 18px;
+  line-height: 1.35;
+}
+
+.card .profession {
+  font-size: 13px;
+  color: #718096;
+}
+
+.card .specialty {
+  margin: 13px 0 18px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #526174;
+}
+
+.card .pill {
+  padding: 5px 9px;
+  font-size: 10px;
+  letter-spacing: .4px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
+.card button {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #12345a;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #12345a;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.card button:hover {
+  background: #12345a;
+  color: #ffffff;
+}
+
 .card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px #142f4d12; }
 .photo {
   height: 170px; display: grid; place-items: center;
@@ -205,9 +266,34 @@ header {
   box-shadow: 0 14px 32px #12345a15;
 }
 
+
+/* Fotografías de los mentores */
 .card .photo {
-  height: 210px;
+  height: 190px;
+  position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #edf2f5;
+  color: #547087;
+  font-size: 42px;
+  font-weight: 600;
+}
+
+.card .photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  font-size: 0;
+  color: transparent;
+}
+
+.card:hover .photo img {
+  transform: scale(1.025);
 }
 
 .card .photo img {
