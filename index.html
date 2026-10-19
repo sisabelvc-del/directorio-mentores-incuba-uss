@@ -384,6 +384,103 @@ header {
 }
 
 </style>
+  
+/* =========================================
+   IDENTIDAD VISUAL - INCUBA USS
+   Directorio de Mentores
+   ========================================= */
+
+:root {
+  --incuba-verde: #00C853;
+  --incuba-azul: #3030A0;
+  --incuba-azul-oscuro: #20356F;
+  --incuba-verde-azulado: #087E91;
+  --incuba-gris: #424242;
+  --incuba-fondo: #F4F7FA;
+  --incuba-blanco: #FFFFFF;
+}
+
+/* Fondo general */
+body {
+  background-color: var(--incuba-fondo);
+  color: var(--incuba-gris);
+}
+
+/* Títulos principales */
+h1,
+h2,
+h3 {
+  color: var(--incuba-azul);
+}
+
+/* Tarjetas de mentores */
+.mentor-card,
+.mentor-card-content {
+  background-color: var(--incuba-blanco);
+}
+
+/* Botones principales */
+button,
+.btn-primary {
+  background-color: var(--incuba-azul-oscuro);
+  color: var(--incuba-blanco);
+  border-color: transparent;
+  transition: background-color 0.2s ease;
+}
+
+/* Efecto al pasar el cursor */
+button:hover,
+.btn-primary:hover {
+  background-color: var(--incuba-verde-azulado);
+}
+
+/* Etiquetas y categorías */
+.badge,
+.tag,
+.mentor-badge {
+  background-color: #E2F7ED;
+  color: #007D45;
+}
+
+/* Enlaces */
+a {
+  color: var(--incuba-azul);
+}
+
+a:hover {
+  color: var(--incuba-verde-azulado);
+}
+
+/* Campos de búsqueda y filtros */
+input,
+select,
+textarea {
+  border-color: #D5DDE5;
+  color: var(--incuba-gris);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline-color: var(--incuba-verde);
+  border-color: var(--incuba-verde);
+}
+
+/* Bordes de las tarjetas */
+.mentor-card {
+  border: 1px solid #E0E6ED;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+/* Fotografías */
+.mentor-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 </head>
 <body>
 <header>
