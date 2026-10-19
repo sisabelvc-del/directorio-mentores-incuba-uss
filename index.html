@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Directorio de Mentores | Incuba USS</title>
+<style>
+:root {
+  --azul: #12345a;
+  --verde: #00a88f;
+  --fondo: #f5f7fa;
+  --texto: #243247;
+  --muted: #718096;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--fondo);
+  color: var(--texto);
+}
+header {
+  background: white;
+  border-bottom: 1px solid #e5eaf0;
+  padding: 18px 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.brand { display: flex; align-items: center; gap: 13px; }
+.brand-mark {
+  width: 45px; height: 45px; border-radius: 12px;
+  background: var(--azul); color: white;
+  display: grid; place-items: center;
+  font-size: 19px; font-weight: bold;
+}
+.brand strong { color: var(--azul); font-size: 19px; }
+.brand small { display: block; margin-top: 4px; color: var(--muted); }
+.header-tag { color: var(--verde); font-size: 13px; font-weight: bold; }
+.hero {
+  background: linear-gradient(120deg, #102f54, #1b5270);
+  color: white; padding: 55px 6% 60px;
+}
+.hero-inner { max-width: 1100px; margin: auto; }
+.eyebrow {
+  color: #72e3cf; font-size: 12px; font-weight: bold;
+  letter-spacing: 2px; text-transform: uppercase;
+}
+h1 { font-size: clamp(30px, 4vw, 45px); margin: 15px 0; }
+.hero p { max-width: 620px; color: #e0eaf2; line-height: 1.7; }
+main { max-width: 1200px; margin: -23px auto 0; padding: 0 24px 60px; }
+.search-panel {
+  background: white; padding: 22px; border-radius: 15px;
+  box-shadow: 0 8px 30px #142f4d12;
+}
+.search-panel input, .search-panel select {
+  width: 100%; padding: 14px; border: 1px solid #dbe2ea;
+  border-radius: 8px; background: white; color: var(--texto);
+  font-size: 14px; outline-color: var(--verde);
+}
+.filters {
+  display: grid; grid-template-columns: 2fr 1fr 1fr;
+  gap: 12px; margin-top: 12px;
+}
+.results {
+  display: flex; justify-content: space-between; align-items: center;
+  margin: 30px 2px 17px; gap: 12px;
+}
+.results h2 { margin: 0; color: var(--azul); font-size: 22px; }
+.results span { color: var(--muted); font-size: 13px; }
+.grid {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+.card {
+  background: white; border: 1px solid #e7ebf0; border-radius: 14px;
+  overflow: hidden; transition: transform .2s, box-shadow .2s;
+}
+.card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px #142f4d12; }
+.photo {
+  height: 170px; display: grid; place-items: center;
+  background: linear-gradient(135deg, #dcebe9, #e7edf6);
+  color: var(--azul); font-size: 46px; font-weight: bold;
+}
+.card-body { padding: 20px; }
+.pill {
+  display: inline-block; padding: 6px 10px; border-radius: 30px;
+  background: #e5f7f3; color: #087d6d; font-size: 11px;
+  font-weight: bold; margin-bottom: 12px;
+}
+.card h3 { margin: 0 0 7px; color: var(--azul); font-size: 19px; }
+.profession { font-size: 13px; color: var(--muted); }
+.specialty { margin: 16px 0; font-size: 13px; line-height: 1.6; }
+.card button, .back-button {
+  width: 100%; padding: 12px; border: 0; border-radius: 8px;
+  background: var(--azul); color: white; font-weight: bold;
+  cursor: pointer;
+}
+.card button:hover, .back-button:hover { background: #1b5270; }
+.empty {
+  grid-column: 1/-1; text-align: center; padding: 45px 15px;
+  background: white; border-radius: 12px; color: var(--muted);
+}
+.profile {
+  display: none; background: white; border-radius: 15px;
+  padding: 28px; margin-top: 25px;
+}
+.profile-top { display: flex; gap: 22px; align-items: center; }
+.profile .photo { width: 125px; height: 125px; border-radius: 12px; flex-shrink: 0; }
+.profile h2 { color: var(--azul); margin-bottom: 8px; }
+.profile h3 { color: var(--azul); margin-top: 27px; }
+.profile p { line-height: 1.7; white-space: pre-line; }
+.social a { display: inline-block; margin: 5px 8px 5px 0; color: #087d6d; }
+.back-button { margin-bottom: 22px; width: auto; }
+footer {
+  padding: 27px 20px; text-align: center; background: white;
+  border-top: 1px solid #e5eaf0; color: var(--muted); font-size: 12px;
+}
+footer strong { color: var(--azul); }
+@media(max-width: 850px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media(max-width: 560px) {
+  header { padding: 15px 5%; }
+  .header-tag { display: none; }
+  .hero { padding: 42px 6% 52px; }
+  main { padding: 0 14px 40px; }
+  .filters { grid-template-columns: 1fr; }
+  .grid { grid-template-columns: 1fr; }
+  .profile { padding: 18px; }
+  .profile-top { align-items: flex-start; flex-direction: column; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="brand-mark">I+</div>
+    <div>
+      <strong>INCUBA USS</strong>
+      <small>Directorio de Mentores</small>
+    </div>
+  </div>
+  <span class="header-tag">CONECTAMOS EXPERIENCIA Y TALENTO</span>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Red de expertos</div>
+    <h1>Encuentra al mentor que necesitas</h1>
+    <p>Conecta con profesionales que pueden ayudarte a fortalecer tu negocio, desarrollar tus ideas y encontrar nuevas oportunidades de crecimiento.</p>
+  </div>
+</section>
+
+<main>
+  <section class="search-panel" id="searchPanel">
+    <input id="search" type="search" placeholder="Buscar por nombre, profesión o especialidad..." aria-label="Buscar mentores">
+    <div class="filters">
+      <select id="specialty" aria-label="Filtrar por especialidad">
+        <option value="">Todas las especialidades</option>
+      </select>
+      <select id="sector" aria-label="Filtrar por sector">
+        <option value="">Todos los sectores</option>
+      </select>
+      <select id="city" aria-label="Filtrar por ciudad">
+        <option value="">Todas las ciudades</option>
+      </select>
+    </div>
+  </section>
+
+  <section id="directory">
+    <div class="results">
+      <h2>Nuestros mentores</h2>
+      <span id="count"></span>
+    </div>
+    <div class="grid" id="cards"></div>
+  </section>
+
+  <section class="profile" id="profile"></section>
+</main>
+
+<footer>
+  <strong>INCUBA USS</strong> · Universidad Señor de Sipán<br>
+  Directorio de Mentores · Conocimiento que impulsa oportunidades
+</footer>
+
+<script>
+/*
+  DATOS TEMPORALES DE DEMOSTRACIÓN.
+  Se reemplazarán por los registros reales de Google Sheets.
+*/
+const mentors = [
+  {
+    id: "DEMO01",
+    name: "Mentor de demostración",
+    profession: "Profesión por registrar",
+    degree: "Grado académico por registrar",
+    specialty: "Marketing",
+    specialties: ["Marketing", "Ventas"],
+    sectors: ["Comercio", "Servicios"],
+    city: "Chiclayo",
+    country: "Perú",
+    experienceYears: 0,
+    mentoringYears: 0,
+    bio: "Este perfil es un ejemplo visual. Aquí se mostrará la biografía real del mentor cuando conectemos la base de datos.",
+    experience: "La experiencia profesional se incorporará desde la base de datos.",
+    mentoring: "La experiencia como mentor se incorporará desde la base de datos.",
+    photo: "",
+    linkedin: "",
+    facebook: "",
+    instagram: "",
+    website: "",
+    email: ""
+  }
+];
+
+const $ = id => document.getElementById(id);
+const clean = value => String(value || "").trim();
+const list = value => Array.isArray(value) ? value : clean(value).split(/[,;]+/).map(x => x.trim()).filter(Boolean);
+const safe = value => String(value ?? "").replace(/[&<>"']/g, c => ({
+  "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+}[c]));
+const initials = name => clean(name).split(/\s+/).slice(0,2).map(n => n[0] || "").join("").toUpperCase() || "M";
+
+function optionsFor(id, values, label) {
+  const select = $(id);
+  const previous = select.value;
+  select.innerHTML = `<option value="">${label}</option>` +
+    [...new Set(values.flatMap(list))].filter(Boolean).sort((a,b)=>a.localeCompare(b,"es"))
+    .map(v => `<option value="${safe(v)}">${safe(v)}</option>`).join("");
+  if ([...select.options].some(o => o.value === previous)) select.value = previous;
+}
+
+function render() {
+  const q = clean($("search").value).toLocaleLowerCase("es");
+  const specialty = $("specialty").value;
+  const sector = $("sector").value;
+  const city = $("city").value;
+
+  const found = mentors.filter(m => {
+    const text = [m.name,m.profession,m.specialty,...list(m.specialties),m.bio].join(" ").toLocaleLowerCase("es");
+    return (!q || text.includes(q)) &&
+      (!specialty || list(m.specialties).concat(list(m.specialty)).includes(specialty)) &&
+      (!sector || list(m.sectors).includes(sector)) &&
+      (!city || clean(m.city) === city);
+  });
+
+  $("count").textContent = `${found.length} ${found.length === 1 ? "mentor" : "mentores"}`;
+  $("cards").innerHTML = found.length ? found.map((m) => `
+    <article class="card">
+      <div class="photo">${m.photo
+        ? `<img src="${safe(m.photo)}" alt="Foto de ${safe(m.name)}" style="width:100%;height:100%;object-fit:cover">`
+        : safe(initials(m.name))}</div>
+      <div class="card-body">
+        <span class="pill">${safe(m.specialty || "Mentoría")}</span>
+        <h3>${safe(m.name)}</h3>
+        <div class="profession">${safe(m.profession)}</div>
+        <div class="specialty">${safe(list(m.specialties).join(" · ") || "Especialidades por registrar")}</div>
+        <button type="button" data-profile="${safe(m.id)}">Ver perfil completo →</button>
+      </div>
+    </article>`).join("") :
+    `<div class="empty">No encontramos mentores con esos criterios. Prueba con otra búsqueda.</div>`;
+
+  $("cards").querySelectorAll("[data-profile]").forEach(button => {
+    button.addEventListener("click", () => showProfile(button.dataset.profile));
+  });
+}
+
+function showProfile(id) {
+  const m = mentors.find(x => x.id === id);
+  if (!m) return;
+  const links = [
+    ["LinkedIn",m.linkedin], ["Facebook",m.facebook],
+    ["Instagram",m.instagram], ["Página web",m.website]
+  ].filter(([,url]) => /^https?:\/\//i.test(clean(url)));
+
+  $("profile").innerHTML = `
+    <button class="back-button" id="back">← Volver al directorio</button>
+    <div class="profile-top">
+      <div class="photo">${m.photo
+        ? `<img src="${safe(m.photo)}" alt="Foto de ${safe(m.name)}" style="width:100%;height:100%;object-fit:cover;border-radius:12px">`
+        : safe(initials(m.name))}</div>
+      <div>
+        <span class="pill">${safe(m.specialty || "Mentoría")}</span>
+        <h2>${safe(m.name)}</h2>
+        <p>${safe(m.profession)} · ${safe(m.degree)}<br>${safe([m.city,m.country].filter(Boolean).join(", "))}</p>
+      </div>
+    </div>
+    <h3>Sobre el mentor</h3><p>${safe(m.bio || "Información por registrar.")}</p>
+    <h3>Experiencia profesional</h3><p>${safe(m.experience || "Información por registrar.")}</p>
+    <h3>Experiencia en mentoría</h3><p>${safe(m.mentoring || "Información por registrar.")}</p>
+    <h3>Especialidades y sectores</h3>
+    <p><strong>Especialidades:</strong> ${safe(list(m.specialties).join(", ") || m.specialty || "Por registrar")}<br>
+    <strong>Sectores:</strong> ${safe(list(m.sectors).join(", ") || "Por registrar")}<br>
+    <strong>Años de experiencia:</strong> ${safe(m.experienceYears ?? "Por registrar")}<br>
+    <strong>Años como mentor:</strong> ${safe(m.mentoringYears ?? "Por registrar")}</p>
+    ${links.length ? `<h3>Conecta con el mentor</h3><div class="social">${links.map(([label,url])=>`<a href="${safe(url)}" target="_blank" rel="noopener noreferrer">${safe(label)} ↗</a>`).join("")}</div>` : ""}
+    ${/^mailto:[^\s@]+@[^\s@]+\.[^\s@]+$/i.test(clean(m.email)) ? `<p><a href="${safe(m.email)}">Contactar por correo</a></p>` : ""}
+  `;
+  $("directory").style.display = "none";
+  $("searchPanel").style.display = "none";
+  $("profile").style.display = "block";
+  $("back").addEventListener("click", () => {
+    $("profile").style.display = "none";
+    $("directory").style.display = "block";
+    $("searchPanel").style.display = "block";
+    window.scrollTo({top:0,behavior:"smooth"});
+  });
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+optionsFor("specialty", mentors.map(m => list(m.specialties).concat(list(m.specialty))), "Todas las especialidades");
+optionsFor("sector", mentors.map(m => m.sectors), "Todos los sectores");
+optionsFor("city", mentors.map(m => m.city), "Todas las ciudades");
+["search","specialty","sector","city"].forEach(id => $(id).addEventListener(id === "search" ? "input" : "change", render));
+render();
+</script>
+</body>
+</html>
