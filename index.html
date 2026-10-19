@@ -131,6 +131,173 @@ footer strong { color: var(--azul); }
   .profile { padding: 18px; }
   .profile-top { align-items: flex-start; flex-direction: column; }
 }
+  
+/* Mejoras visuales para Incuba USS */
+header {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.brand-mark {
+  background: linear-gradient(145deg, #12345a, #087d6d);
+  box-shadow: 0 4px 12px #12345a20;
+}
+
+.hero {
+  background:
+    radial-gradient(ellipse at 90% 10%, #ffffff12, transparent 40%),
+    linear-gradient(120deg, #102f54, #1b5270);
+  padding-top: 64px;
+  padding-bottom: 72px;
+}
+
+.hero h1 {
+  max-width: 760px;
+  line-height: 1.12;
+  letter-spacing: -1px;
+}
+
+.hero p {
+  font-size: 16px;
+  max-width: 650px;
+}
+
+.search-panel {
+  padding: 24px;
+  border: 1px solid #e7ebf0;
+  border-radius: 16px;
+}
+
+.search-panel input,
+.search-panel select {
+  min-height: 48px;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+.search-panel input:focus,
+.search-panel select:focus {
+  border-color: #00a88f;
+  box-shadow: 0 0 0 3px #00a88f18;
+}
+
+.results {
+  margin-top: 36px;
+  margin-bottom: 22px;
+}
+
+.results h2 {
+  letter-spacing: -.4px;
+}
+
+.grid {
+  gap: 24px;
+}
+
+.card {
+  border-radius: 16px;
+  border-color: #e5eaf0;
+  box-shadow: 0 3px 12px #12345a08;
+  transition: transform .22s ease, box-shadow .22s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 32px #12345a15;
+}
+
+.card .photo {
+  height: 210px;
+  overflow: hidden;
+}
+
+.card .photo img {
+  transition: transform .35s ease;
+}
+
+.card:hover .photo img {
+  transform: scale(1.035);
+}
+
+.card-body {
+  padding: 22px;
+}
+
+.card h3 {
+  line-height: 1.35;
+  letter-spacing: -.25px;
+}
+
+.card .pill {
+  letter-spacing: .2px;
+  text-transform: uppercase;
+}
+
+.card button,
+.back-button {
+  min-height: 44px;
+  transition: background .2s, transform .2s;
+}
+
+.card button:hover,
+.back-button:hover {
+  transform: translateY(-1px);
+}
+
+.profile {
+  border: 1px solid #e5eaf0;
+  border-radius: 18px;
+  padding: 32px;
+  box-shadow: 0 8px 28px #12345a0a;
+}
+
+.profile .profile-top {
+  padding-bottom: 24px;
+  border-bottom: 1px solid #e7ebf0;
+}
+
+.profile .photo {
+  overflow: hidden;
+}
+
+.profile h3 {
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e5f7f3;
+}
+
+.profile p {
+  color: #526174;
+  line-height: 1.8;
+}
+
+.social a {
+  display: inline-block;
+  padding: 10px 14px;
+  margin: 4px 6px 4px 0;
+  background: #e5f7f3;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.social a:hover {
+  background: #c9eee6;
+}
+
+@media (max-width: 560px) {
+  .hero {
+    padding-top: 44px;
+    padding-bottom: 54px;
+  }
+
+  .card .photo {
+    height: 230px;
+  }
+
+  .profile {
+    padding: 20px;
+  }
+}
+
 </style>
 </head>
 <body>
