@@ -382,101 +382,91 @@ header {
     padding: 20px;
   }
 }
-/* =========================================
-   IDENTIDAD VISUAL - INCUBA USS
-   Directorio de Mentores
-   ========================================= */
 
+/* IDENTIDAD VISUAL INCUBA USS */
 :root {
   --incuba-verde: #00C853;
   --incuba-azul: #3030A0;
-  --incuba-azul-oscuro: #20356F;
-  --incuba-verde-azulado: #087E91;
+  --incuba-azul-oscuro: #15365B;
+  --incuba-turquesa: #087E91;
   --incuba-gris: #424242;
   --incuba-fondo: #F4F7FA;
-  --incuba-blanco: #FFFFFF;
 }
 
-/* Fondo general */
+/* Evitar desbordamientos horizontales */
+html,
 body {
-  background-color: var(--incuba-fondo);
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--incuba-fondo);
   color: var(--incuba-gris);
 }
 
-/* Títulos principales */
+/* Encabezado institucional */
+.logo-incuba {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* Títulos */
 h1,
 h2,
 h3 {
   color: var(--incuba-azul);
 }
 
-/* Tarjetas de mentores */
-.mentor-card,
-.mentor-card-content {
-  background-color: var(--incuba-blanco);
-}
-
-/* Botones principales */
+/* Botones */
 button,
 .btn-primary {
   background-color: var(--incuba-azul-oscuro);
-  color: var(--incuba-blanco);
+  color: #FFFFFF;
   border-color: transparent;
-  transition: background-color 0.2s ease;
+  border-radius: 9px;
 }
 
-/* Efecto al pasar el cursor */
 button:hover,
 .btn-primary:hover {
-  background-color: var(--incuba-verde-azulado);
+  background-color: var(--incuba-turquesa);
 }
 
-/* Etiquetas y categorías */
-.badge,
-.tag,
-.mentor-badge {
-  background-color: #E2F7ED;
-  color: #007D45;
-}
-
-/* Enlaces */
-a {
-  color: var(--incuba-azul);
-}
-
-a:hover {
-  color: var(--incuba-verde-azulado);
-}
-
-/* Campos de búsqueda y filtros */
+/* Buscador y filtros */
 input,
 select,
 textarea {
+  max-width: 100%;
+  box-sizing: border-box;
   border-color: #D5DDE5;
-  color: var(--incuba-gris);
+  border-radius: 9px;
 }
 
 input:focus,
 select:focus,
 textarea:focus {
-  outline-color: var(--incuba-verde);
   border-color: var(--incuba-verde);
+  outline-color: var(--incuba-verde);
 }
 
-/* Bordes de las tarjetas */
+/* Tarjetas */
 .mentor-card {
   border: 1px solid #E0E6ED;
-  border-radius: 18px;
+  border-radius: 16px;
   overflow: hidden;
+  background: #FFFFFF;
 }
 
-/* Fotografías */
-.mentor-card img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+/* Etiquetas */
+.badge,
+.tag,
+.mentor-badge {
+  background: #E2F7ED;
+  color: #007D45;
 }
+
 </style>
   
 </head>
