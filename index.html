@@ -480,7 +480,7 @@ function render() {
   $("cards").innerHTML = found.length ? found.map((m) => `
     <article class="card">
       <div class="photo">${m.photo
-        ? `<img src="${safe(m.photo)}" alt="Foto de ${safe(m.name)}" style="width:100%;height:100%;object-fit:cover">`
+        ? `<img src="${safe(m.photo.replace('drive.google.com/uc?export=view&id=', 'drive.google.com/thumbnail?id=').replace(/&.*$/, ''))}" alt="Foto de ${safe(m.name)}" style="width:100%;height:100%;object-fit:cover">`
         : safe(initials(m.name))}</div>
       <div class="card-body">
         <span class="pill">${safe(m.specialty || "Mentoría")}</span>
