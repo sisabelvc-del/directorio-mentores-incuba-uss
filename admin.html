@@ -221,27 +221,41 @@
       );
     }
 
-    function recibirCredencial() {
-      mostrarMensaje(
-        "Inicio de sesión recibido. La autorización administrativa aún no está conectada."
-      );
+    
+async function recibirCredencial(respuestaGoogle) {
+  mostrarMensaje("Verificando tus permisos...");
+
+  try {
+    const respuesta = await fetch(
+      "https://script.google.com/macros/s/AKfycbyMJx_D5m_8Ju-0VbXEN-doMFNUHXh63qdCRVkWRHaiE8JjcPRk7g7a98OVv7273CoxUw/exec",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8"
+        },
+        body: JSON.stringify({
+          accion: "verificarAcceso",
+          idToken: respuestaGoogle.credential
+        })
+      }
+    );
+
+    const resultado = await respuesta.json();
+
+    if (!resultado.ok || !resultado.autorizado) {
+      mostrarMensaje("Tu cuenta no está autorizada para administrar mentores.");
+      return;
     }
 
-    window.addEventListener("load", () => {
-      let intentos = 0;
+    mostrarMensaje("Acceso autorizado para: " + resultado.email);
 
-      const esperar = setInterval(() => {
-        intentos++;
+  } catch (error) {
+    mostrarMensaje(
+      "No se pudo verificar el acceso. Revisa tu conexión e inténtalo nuevamente."
+    );
+  }
+}
 
-        if (window.google && google.accounts && google.accounts.id) {
-          clearInterval(esperar);
-          iniciarGoogle();
-        } else if (intentos >= 20) {
-          clearInterval(esperar);
-          mostrarMensaje("No se pudo cargar Google. Recarga la página.");
-        }
-      }, 300);
-    });
   </script>
 </body>
 </html>
