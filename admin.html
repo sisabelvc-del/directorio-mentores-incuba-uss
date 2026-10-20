@@ -1,0 +1,247 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel privado | Incuba USS</title>
+
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+  <style>
+    :root {
+      --verde: #00C853;
+      --azul: #3030A0;
+      --azul-oscuro: #15365B;
+      --fondo: #F4F7FA;
+      --texto: #424242;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background: var(--fondo);
+      color: var(--texto);
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: #FFFFFF;
+      border-bottom: 4px solid var(--verde);
+      padding: 18px 24px;
+    }
+
+    .marca {
+      max-width: 1050px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .marca img {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    .marca h1 {
+      color: var(--azul);
+      font-size: 21px;
+      margin: 0 0 5px;
+    }
+
+    .marca p {
+      margin: 0;
+      font-size: 14px;
+      color: #606770;
+    }
+
+    main {
+      flex: 1;
+      display: grid;
+      place-items: center;
+      padding: 32px 16px;
+    }
+
+    .acceso {
+      width: 100%;
+      max-width: 440px;
+      background: #FFFFFF;
+      border-radius: 18px;
+      padding: 36px 28px;
+      text-align: center;
+      box-shadow: 0 8px 30px rgba(21, 54, 91, 0.08);
+      border: 1px solid #E1E7EF;
+    }
+
+    .icono {
+      width: 62px;
+      height: 62px;
+      margin: 0 auto 18px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      background: #E2F7ED;
+      color: #007D45;
+      font-size: 29px;
+    }
+
+    h2 {
+      color: var(--azul-oscuro);
+      font-size: 24px;
+      margin: 0 0 12px;
+    }
+
+    .descripcion {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #606770;
+      margin-bottom: 25px;
+    }
+
+    #googleButton {
+      display: flex;
+      justify-content: center;
+      min-height: 44px;
+    }
+
+    #mensaje {
+      margin-top: 18px;
+      font-size: 14px;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+
+    .nota {
+      margin-top: 22px;
+      font-size: 12px;
+      line-height: 1.5;
+      color: #737B85;
+    }
+
+    footer {
+      text-align: center;
+      padding: 18px;
+      color: #707782;
+      font-size: 12px;
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 14px;
+      }
+
+      .marca img {
+        width: 52px;
+        height: 52px;
+      }
+
+      .marca h1 {
+        font-size: 17px;
+      }
+
+      .acceso {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="marca">
+      <img src="logo-incuba-uss.png" alt="Logo Incuba USS">
+      <div>
+        <h1>INCUBA USS</h1>
+        <p>Panel privado de administración</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="acceso">
+      <div class="icono" aria-hidden="true">♙</div>
+      <h2>Acceso de administradores</h2>
+
+      <p class="descripcion">
+        Inicia sesión con tu cuenta de Google autorizada
+        para gestionar el Directorio de Mentores Incuba USS.
+      </p>
+
+      <div id="googleButton"></div>
+      <div id="mensaje" role="status" aria-live="polite"></div>
+
+      <p class="nota">
+        Acceso exclusivo para administradores autorizados.
+        Iniciar sesión no concede permisos automáticamente.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    Universidad Señor de Sipán · Incuba USS
+  </footer>
+
+  <script>
+    const CLIENT_ID =
+      "312100222473-5arj6snk8d23npao6omf9huvb7g9lujk.apps.googleusercontent.com";
+
+    function mostrarMensaje(texto) {
+      document.getElementById("mensaje").textContent = texto;
+    }
+
+    function iniciarGoogle() {
+      if (!window.google || !google.accounts || !google.accounts.id) {
+        mostrarMensaje("No se pudo cargar el inicio de sesión. Recarga la página.");
+        return;
+      }
+
+      google.accounts.id.initialize({
+        client_id: CLIENT_ID,
+        callback: recibirCredencial
+      });
+
+      google.accounts.id.renderButton(
+        document.getElementById("googleButton"),
+        {
+          theme: "outline",
+          size: "large",
+          text: "signin_with",
+          shape: "rectangular",
+          width: 280
+        }
+      );
+    }
+
+    function recibirCredencial() {
+      mostrarMensaje(
+        "Inicio de sesión recibido. La autorización administrativa aún no está conectada."
+      );
+    }
+
+    window.addEventListener("load", () => {
+      let intentos = 0;
+
+      const esperar = setInterval(() => {
+        intentos++;
+
+        if (window.google && google.accounts && google.accounts.id) {
+          clearInterval(esperar);
+          iniciarGoogle();
+        } else if (intentos >= 20) {
+          clearInterval(esperar);
+          mostrarMensaje("No se pudo cargar Google. Recarga la página.");
+        }
+      }, 300);
+    });
+  </script>
+</body>
+</html>
